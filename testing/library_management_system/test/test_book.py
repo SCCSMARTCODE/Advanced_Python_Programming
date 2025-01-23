@@ -3,7 +3,7 @@ from unittest import TestCase, main, mock
 import os, sys
 
 from testing.library_management_system.app.book import BOOKS_DB, load_books, save_books, add_book, remove_book, \
-    update_book, borrow_book, datetime
+    update_book, borrow_book, datetime, return_book
 from testing.library_management_system.app.user import UserObj
 
 
@@ -169,6 +169,40 @@ class BookFunctionalityTest(TestCase):
         self.assertEqual(result[0]['available_copies'], books[0]['available_copies'] - 1)
         self.assertEqual(result[0]['borrowed_copies'], 1)
         os.remove(BOOKS_DB)
+
+    def test_return_book(self):
+        books = [
+            {
+                "title": "title",
+                "author": "author",
+                "genre": "genre",
+                "available_copies": 10,
+                "borrowed_copies": 0,
+                "transactions": []
+            },
+            {
+                "title": "title1",
+                "author": "author1",
+                "genre": "genre",
+                "available_copies": 20,
+                "borrowed_copies": 0,
+                "transactions": []
+            }
+        ]
+        save_books(books)
+        with mock.patch('builtins.input') as patch_input:
+            user = UserObj(username="test", email="test@gmail.com", mode="client")
+            patch_input.return_value = books[0]['title']
+            borrow_book(user)
+            return_book(user)
+
+            result = load_books()
+            self.assertTrue(result[0]['transactions'])
+            self.assertTrue(result[0]['transactions'][0]["returned"])
+            self.assertEqual(result[0]['transactions'][0].get("email"), user.email)
+            self.assertEqual(result[0]['available_copies'], books[0]['available_copies'])
+            self.assertEqual(result[0]['borrowed_copies'], 0)
+            os.remove(BOOKS_DB)
 
 
 if __name__ == '__main__':
