@@ -1,7 +1,8 @@
 import json
 import os
 
-from testing.library_management_system.app.book import add_book, remove_book, update_book, view_all_books, borrow_book, return_book
+from testing.library_management_system.app.book import add_book, remove_book, update_book, view_all_books, borrow_book, \
+    return_book
 
 # Path to the JSON file storing user data
 USER_DATA_FILE = "db/user_data.json"
@@ -22,7 +23,7 @@ class UserObj:
         return f"UserObj(username='{self.username}', email='{self.email}', mode='{self.mode}')"
 
 
-def register() -> UserObj:
+def register() -> [UserObj | None]:
     """
     Register a new user and save the details to the JSON file.
     Returns:
@@ -63,7 +64,7 @@ def register() -> UserObj:
     return UserObj(username, email, mode)
 
 
-def login() -> UserObj:
+def login() -> [UserObj | None]:
     """
     Log in an existing user by verifying their username and password.
     Returns:
@@ -139,4 +140,3 @@ def admin_menu():
         else:
             print("Invalid option. Please try again.\n")
             continue
-
