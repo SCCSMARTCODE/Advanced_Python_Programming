@@ -1,7 +1,7 @@
 import json
 import os
 
-from book import add_book, remove_book, update_book, view_all_books, borrow_book, return_book
+from testing.library_management_system.app.book import add_book, remove_book, update_book, view_all_books, borrow_book, return_book
 
 # Path to the JSON file storing user data
 USER_DATA_FILE = "db/user_data.json"
