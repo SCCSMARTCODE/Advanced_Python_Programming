@@ -160,12 +160,12 @@ class BookFunctionalityTest(TestCase):
             user = UserObj(username="test", email="test@gmail.com", mode="client")
             patch_input.return_value = books[0]['title']
             patch_date_return_value = datetime.now()
-            with mock.patch('datetime') as patch_date:
-                patch_date.now.return_value = lambda :patch_date_return_value
+            with mock.patch('testing.library_management_system.app.book.datetime') as patch_date:
+                patch_date.now.return_value = patch_date_return_value
                 borrow_book(user)
         result = load_books()
         self.assertTrue(result[0]['transactions'])
-        self.assertEqual(result[0]['transactions'].get("email"), user.email)
+        self.assertEqual(result[0]['transactions'][0].get("email"), user.email)
         self.assertEqual(result[0]['available_copies'], books[0]['available_copies'] - 1)
         self.assertEqual(result[0]['borrowed_copies'], 1)
         os.remove(BOOKS_DB)
