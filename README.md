@@ -5,8 +5,8 @@ Welcome to the **Advanced Python Programming Learning Repository**! This reposit
 ## Topics
 
 ### Testing
-- [ ] Unit testing with `unittest`
-- [ ] Mocking and patching
+- [x] Unit testing with `unittest`
+- [x] Mocking and patching
 - [ ] Test-driven development (TDD)
 - [ ] Using `pytest` for advanced testing
 - [ ] Property-based testing with `hypothesis`
