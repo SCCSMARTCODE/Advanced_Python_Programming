@@ -1,7 +1,7 @@
 import json
 from datetime import datetime, timedelta
 
-BOOKS_DB = "db/books.json"
+BOOKS_DB = "./db/books.json"
 
 
 def load_books():
