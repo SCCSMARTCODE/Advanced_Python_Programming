@@ -19,7 +19,7 @@ Welcome to the **Advanced Python Programming Learning Repository**! This reposit
 
 ### Metaprogramming
 - [ ] Understanding `type` and `metaclass`
-- [ ] Using `__getattr__`, `__setattr__`, and `__delattr__`
+- [x] Using `__getattr__`, `__setattr__`, and `__delattr__`
 - [ ] Creating decorators and function wrappers
 - [ ] Dynamic class creation and modification
 
