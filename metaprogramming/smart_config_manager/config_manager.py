@@ -38,13 +38,13 @@ class ConfigManager:
         self.save_config()
 
     def set_readonly(self, key):
-        """Sets a config item as read-only."""
-        if key in self.config:
-            self.readonly_keys.add(key)
-            self.config[key][1] = True
-            self.save_config()
-        else:
-            raise KeyError(f"{key} not found in configuration")
+        """Marks a config key as read-only, ensuring it exists first."""
+        if key not in self.config:
+            raise KeyError(f"Cannot mark '{key}' as read-only because it does not exist.")
+
+        self.readonly_keys.add(key)
+        self.config[key][1] = True
+        self.save_config()
 
     def __getitem__(self, item):
         """Gets the config item, enforcing read-only restrictions."""
@@ -88,3 +88,13 @@ class ConfigManager:
             self.save_config()
         else:
             raise AttributeError(f"{key} not found in configuration")
+
+    def __delitem__(self, key):
+        """Allows deletion of config items while enforcing read-only restrictions."""
+        if key in self.readonly_keys:
+            raise ValueError(f"{key} is a read-only key and cannot be deleted.")
+        if key in self.config:
+            del self.config[key]
+            self.save_config()
+        else:
+            raise KeyError(f"{key} not found in configuration.")
