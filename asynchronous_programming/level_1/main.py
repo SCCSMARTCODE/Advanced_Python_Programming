@@ -9,9 +9,12 @@ async def simulate_download(simulated_download_count: int, latency_duration: flo
 
 
 async def main():
-    await simulate_download(1, 2)
-    await simulate_download(2, 3)
-    await simulate_download(3, 4)
+    await asyncio.gather(
+        simulate_download(1, 2),
+        simulate_download(2, 3),
+        simulate_download(3, 4),
+    )
+
 
 
 if __name__ == "__main__":
